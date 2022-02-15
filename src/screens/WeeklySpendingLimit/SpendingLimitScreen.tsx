@@ -9,45 +9,31 @@ import {
 import {useDispatch} from 'react-redux';
 import {updateSpendingLimit} from '../../reducers/DebitCard/actionCreators';
 import {colors} from '../../styles/globalStyles';
-import {windowHeight, windowWidth} from '../../constants';
+import {windowWidth} from '../../constants';
 
 const SpendingLimit = () => {
   const [text, setText] = useState('');
   const dispatch = useDispatch();
 
   return (
-    <View style={styles.total}>
+    <View style={styles.container}>
       <TextInput
-        style={{
-          width: windowWidth - 40,
-          fontSize: 40,
-          borderColor: colors.secondary,
-          borderWidth: 1,
-        }}
+        style={styles.newLimit}
         placeholder="Enter new limit"
         onChangeText={newText => setText(newText)}
         value={text}
       />
       <TouchableOpacity
         onPress={() => dispatch(updateSpendingLimit(text))}
-        style={{
-          backgroundColor: colors.primary,
-          width: windowWidth - 40,
-          height: 50,
-          borderRadius: 20,
-          justifyContent: 'center',
-          alignItems: 'center',
-        }}>
-        <Text style={{color: colors.white, fontSize: 20, fontWeight: 'bold'}}>
-          Change Spending Limit
-        </Text>
+        style={styles.spendingLimitTouch}>
+        <Text style={styles.spendingLimitText}>Change Spending Limit</Text>
       </TouchableOpacity>
     </View>
   );
 };
 
 const styles = StyleSheet.create({
-  total: {
+  container: {
     flex: 1,
     flexDirection: 'column',
     justifyContent: 'space-evenly',
@@ -67,6 +53,25 @@ const styles = StyleSheet.create({
   },
   subHeading: {
     fontSize: 13,
+  },
+  spendingLimitTouch: {
+    backgroundColor: colors.primary,
+    width: windowWidth - 40,
+    height: 50,
+    borderRadius: 20,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  spendingLimitText: {
+    color: colors.white,
+    fontSize: 20,
+    fontWeight: 'bold',
+  },
+  newLimit: {
+    width: windowWidth - 40,
+    fontSize: 40,
+    borderColor: colors.secondary,
+    borderWidth: 1,
   },
 });
 

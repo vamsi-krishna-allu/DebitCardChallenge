@@ -1,9 +1,9 @@
-import React, { useState } from 'react';
-import { View, Text, StyleSheet, Switch } from 'react-native';
-import { TouchableOpacity } from 'react-native-gesture-handler';
-import { windowHeight, windowWidth } from '../constants';
-import { Icon } from 'react-native-elements';
-import { colors } from '../styles/globalStyles';
+import React, {useState} from 'react';
+import {View, Text, StyleSheet, Switch} from 'react-native';
+import {TouchableOpacity} from 'react-native-gesture-handler';
+import {windowWidth} from '../constants';
+import {Icon} from 'react-native-elements';
+import {colors} from '../styles/globalStyles';
 
 export const SectionView = (props: {
   index: string;
@@ -27,31 +27,13 @@ export const SectionView = (props: {
   };
 
   return (
-    <View style={styles.total}>
-      <View
-        style={{
-          width: windowWidth - 40,
-          flexDirection: 'row',
-          justifyContent: 'space-between',
-        }}>
+    <View style={styles.container}>
+      <View style={styles.sectionLayout}>
         <TouchableOpacity
           onPress={() => sectionClickEvents(index)}
-          style={{ flexDirection: 'row', justifyContent: 'flex-start' }}>
-          <View
-            style={{
-              borderRadius: 20,
-              width: 40,
-              height: 40,
-              backgroundColor: colors.secondary,
-              marginRight: 10,
-              justifyContent: "center"
-            }}
-          >
-            <Icon
-              name={props.name}
-              color='white'
-              type={props.type}
-            ></Icon>
+          style={styles.iconTouch}>
+          <View style={styles.iconBackground}>
+            <Icon name={props.name} color="white" type={props.type} />
           </View>
           <View style={styles.section}>
             <Text style={styles.heading}>{heading}</Text>
@@ -60,9 +42,9 @@ export const SectionView = (props: {
         </TouchableOpacity>
         {props.isSwitchEnabled && (
           <Switch
-            trackColor={{ false: '#f4f3f4', true: '#04cb62' }}
-            thumbColor={'#ffffff'}
-            ios_backgroundColor="#0c375b"
+            trackColor={{false: colors.tertiary, true: colors.primary}}
+            thumbColor={colors.white}
+            ios_backgroundColor={colors.primary}
             value={switchValue}
             onValueChange={switchValue => {
               setSwitchValue(switchValue);
@@ -76,7 +58,7 @@ export const SectionView = (props: {
 };
 
 const styles = StyleSheet.create({
-  total: {
+  container: {
     flex: 1,
     left: 20,
     paddingBottom: 20,
@@ -93,5 +75,22 @@ const styles = StyleSheet.create({
   },
   subHeading: {
     fontSize: 13,
+  },
+  iconBackground: {
+    borderRadius: 20,
+    width: 40,
+    height: 40,
+    backgroundColor: colors.secondary,
+    marginRight: 10,
+    justifyContent: 'center',
+  },
+  sectionLayout: {
+    width: windowWidth - 40,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+  },
+  iconTouch: {
+    flexDirection: 'row',
+    justifyContent: 'flex-start',
   },
 });

@@ -1,10 +1,15 @@
-import React, { useState } from 'react';
-import { View, Text, StyleSheet, Image, TouchableOpacity } from 'react-native';
+import React, {useState} from 'react';
+import {View, Text, StyleSheet, Image, TouchableOpacity} from 'react-native';
 import cardIcon from '../assets/cardIcon.jpeg';
-import { windowHeight, windowWidth } from '../constants';
-import { Icon } from 'react-native-elements';
+import {windowWidth} from '../constants';
+import {Icon, colors} from 'react-native-elements';
 
-export const Card = (props: { number: any; name: any; cvv: any; startDate: any; }) => {
+export const Card = (props: {
+  number: any;
+  name: any;
+  cvv: any;
+  startDate: any;
+}) => {
   const number = props.number;
   const name = props.name;
   const cvv = props.cvv;
@@ -14,11 +19,13 @@ export const Card = (props: { number: any; name: any; cvv: any; startDate: any; 
   return (
     <View>
       <View style={styles.hideCard}>
-        <TouchableOpacity style={{ flexDirection: "row", justifyContent: "flex-end", alignItems: "center" }} onPress={() => setHideCardNumber(!hideCardNumber)}>
+        <TouchableOpacity
+          style={styles.hideCardLayout}
+          onPress={() => setHideCardNumber(!hideCardNumber)}>
           <Icon
             name={hideCardNumber ? 'eye' : 'eye-with-line'}
-            color='#04cb62'
-            type='entypo'
+            color={colors.primary}
+            type="entypo"
           />
           <Text style={styles.hideCardTitle}>
             {hideCardNumber ? 'Show card number' : 'Hide card number'}
@@ -29,16 +36,7 @@ export const Card = (props: { number: any; name: any; cvv: any; startDate: any; 
       <View style={styles.cardStyle}>
         <View style={styles.section}>
           <View style={styles.logoWithTitle}>
-            <Image
-              source={cardIcon}
-              style={{
-                width: 20,
-                height: 20,
-                borderRadius: 30,
-                marginRight: 10,
-                marginTop: 5,
-              }}
-            />
+            <Image source={cardIcon} style={styles.cardIcon} />
             <Text style={styles.cardTitle}>aspire</Text>
           </View>
           <Text style={styles.cardName}>{name}</Text>
@@ -130,5 +128,17 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'flex-end',
     lineHeight: 1.5,
+  },
+  cardIcon: {
+    width: 20,
+    height: 20,
+    borderRadius: 30,
+    marginRight: 10,
+    marginTop: 5,
+  },
+  hideCardLayout: {
+    flexDirection: 'row',
+    justifyContent: 'flex-end',
+    alignItems: 'center',
   },
 });

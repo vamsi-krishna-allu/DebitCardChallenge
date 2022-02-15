@@ -1,52 +1,51 @@
 import * as React from 'react';
 import * as ReactRedux from 'react-redux';
 import DebitCardScreen from '../../../screens/DebitCard/DebitCardScreen';
-import Enzyme, { shallow } from 'enzyme';
+import Enzyme, {shallow} from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
 
-Enzyme.configure({ adapter: new Adapter() });
+Enzyme.configure({adapter: new Adapter()});
 
 describe('Debit Cards Screen', () => {
-    let props;
+  let props;
 
-    const mockEffect = jest.fn();
+  const mockEffect = jest.fn();
 
-    const mockSelectorState = jest.fn();
+  const mockSelectorState = jest.fn();
 
-    beforeEach(() => {
-        props = {
-            navigation: {
-                navigate: jest.fn()
-            }
-        };
+  beforeEach(() => {
+    props = {
+      navigation: {
+        navigate: jest.fn(),
+      },
+    };
 
-        mockSelectorState.mockImplementation((callback) =>
-            callback({
-                spendingLimit: '5000',
-            }),
-        );
+    mockSelectorState.mockImplementation(callback =>
+      callback({
+        spendingLimit: '5000',
+      }),
+    );
 
-        global.fetch = jest.fn().mockImplementation(() => {
-            Promise.resolve({
-                json: () => Promise.resolve({})
-            });
-        });
-
-        mockEffect.mockImplementation((callback) => callback({}));
-        jest.useFakeTimers();
+    global.fetch = jest.fn().mockImplementation(() => {
+      Promise.resolve({
+        json: () => Promise.resolve({}),
+      });
     });
 
-    afterAll(() => {
-        jest.resetAllMocks();
-    });
+    mockEffect.mockImplementation(callback => callback({}));
+    jest.useFakeTimers();
+  });
 
-    it('verify the screen', () => {
-        jest.spyOn(React, 'useEffect').mockImplementation(mockEffect);
-        jest.spyOn(ReactRedux, 'useSelector').mockImplementation(mockSelectorState);
+  afterAll(() => {
+    jest.resetAllMocks();
+  });
 
-        const component = shallow(<DebitCardScreen {...props} />);
+  it('verify the screen', () => {
+    jest.spyOn(React, 'useEffect').mockImplementation(mockEffect);
+    jest.spyOn(ReactRedux, 'useSelector').mockImplementation(mockSelectorState);
 
-        expect(component).toBeTruthy();
-    });
+    const component = shallow(<DebitCardScreen {...props} />);
 
+    expect(component).toBeTruthy();
+  });
 });
