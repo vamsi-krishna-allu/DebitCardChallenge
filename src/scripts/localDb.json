@@ -1,0 +1,40 @@
+{
+    "cardDetails": [
+        {
+            "id": 1,
+            "cardNumber": "5 6 4 7     3 4 1 1     2 4 1 3     2 0 2 0",
+            "cardOwnerName": "Mark Henry",
+            "cvv": "456",
+            "startDate": "2/20",
+            "amountSpent": "$345",
+            "availableBalance": "3,000"
+        },
+        {
+            "id": 2,
+            "cardNumber": "4 5 2 3     4 3 1 2     2 5 1 3     2 0 2 1",
+            "cardOwnerName": "Mark Henry",
+            "cvv": "473",
+            "startDate": "3/21",
+            "amountSpent": "$345",
+            "availableBalance": "4,000"
+        },
+        {
+            "id": 3,
+            "cardNumber": "5 5 5 5     4 4 4 4     3 3 3 3     2 2 2 2",
+            "cardOwnerName": "Mark Henry",
+            "cvv": "457",
+            "startDate": "5/20",
+            "amountSpent": "$345",
+            "availableBalance": "5,000"
+        },
+        {
+            "id": 4,
+            "cardNumber": "5 5 5 5     6 6 6 6     2 2 2 2     2 0 2 0",
+            "cardOwnerName": "Mark Henry",
+            "cvv": "234",
+            "startDate": "6/21",
+            "amountSpent": "$345",
+            "availableBalance": "6,000"
+        }
+    ]
+}
