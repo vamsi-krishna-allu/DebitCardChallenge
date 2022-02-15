@@ -1,9 +1,9 @@
-import React, {useState} from 'react';
-import {View, Text, StyleSheet, Switch} from 'react-native';
-import {TouchableOpacity} from 'react-native-gesture-handler';
-import {windowWidth} from '../constants';
-import {Icon} from 'react-native-elements';
-import {colors} from '../styles/globalStyles';
+import React, { useState } from 'react';
+import { View, Text, StyleSheet, Switch } from 'react-native';
+import { TouchableOpacity } from 'react-native-gesture-handler';
+import { windowWidth } from '../constants';
+import { Icon } from 'react-native-elements';
+import { colors } from '../styles/globalStyles';
 
 export const SectionView = (props: {
   index: string;
@@ -51,9 +51,9 @@ export const SectionView = (props: {
         </TouchableOpacity>
         {props.isSwitchEnabled && (
           <Switch
-            trackColor={{false: colors.tertiary, true: colors.primary}}
+            trackColor={{ false: colors.tertiary, true: colors.primary }}
             thumbColor={colors.white}
-            ios_backgroundColor={colors.primary}
+            ios_backgroundColor={colors.tertiary}
             value={switchValue}
             onValueChange={switchValue => {
               setSwitchValue(switchValue);

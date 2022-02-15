@@ -6,9 +6,9 @@
       "cvv": "456",
       "startDate": "2/20",
       "amountSpent": 345,
-      "availableBalance": 3009,
+      "availableBalance": 3000,
       "id": 1,
-      "status": "inactive"
+      "status": "active"
     },
     {
       "id": 2,
@@ -28,7 +28,7 @@
       "startDate": "5/20",
       "amountSpent": 465,
       "availableBalance": 5000,
-      "status": "inactive"
+      "status": "active"
     },
     {
       "id": 4,
@@ -38,7 +38,7 @@
       "startDate": "6/21",
       "amountSpent": 265,
       "availableBalance": 6000,
-      "status": "inactive"
+      "status": "active"
     },
     {
       "id": 5,
