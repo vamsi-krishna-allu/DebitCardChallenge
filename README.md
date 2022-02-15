@@ -16,7 +16,7 @@ Steps to setup:
 clone the project
 open terminal and enter below command
 npm install in command line
-npm run link
+npm run link # only if the icons are not recognised
 open another terminal and enter cd ios 
 pod install
 open another terminal and execute 
