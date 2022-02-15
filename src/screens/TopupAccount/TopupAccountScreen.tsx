@@ -5,28 +5,44 @@ import {
   StyleSheet,
   TouchableOpacity,
   TextInput,
-  Alert,
 } from 'react-native';
-import {useDispatch} from 'react-redux';
-import {
-  updateSpendingLimit,
-  updateWidth,
-} from '../../reducers/DebitCard/actionCreators';
+import {useDispatch, useSelector} from 'react-redux';
+import {updateCardDetails} from '../../reducers/DebitCard/actionCreators';
 import {colors} from '../../styles/globalStyles';
-import {windowWidth} from '../../constants';
+import {windowWidth, apiHost} from '../../constants';
+import fetch from 'react-native-fetch-polyfill';
 
-const SpendingLimit = (props: {navigation: any; amountSpent: number}) => {
+const TopupAccount = () => {
   const [text, setText] = useState('');
   const dispatch = useDispatch();
 
+  const cardDetails = useSelector(state => {
+    return state.cardDetails;
+  });
+
   const updateLimit = () => {
-    let limit = Number(text);
-    if (limit === 0) {
-      Alert.alert('Enter valid value');
-    }
-    let width = (props.navigation.state.params.amountSpent * 100) / limit;
-    dispatch(updateWidth(width + '%'));
-    dispatch(updateSpendingLimit(limit));
+    let limit = Number(text) + cardDetails.availableBalance;
+    let updatedCardData = {
+      cardNumber: cardDetails.cardNumber,
+      cardOwnerName: cardDetails.cardOwnerName,
+      cvv: cardDetails.cvv,
+      startDate: cardDetails.startDate,
+      amountSpent: cardDetails.amountSpent,
+      availableBalance: cardDetails.availableBalance,
+    };
+    updatedCardData.availableBalance = limit;
+
+    fetch(`http://${apiHost}:3000/cardDetails/1`, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(updatedCardData),
+    })
+      .then(results => results.json())
+      .then(() => {
+        dispatch(updateCardDetails(updatedCardData));
+      });
   };
 
   return (
@@ -38,7 +54,7 @@ const SpendingLimit = (props: {navigation: any; amountSpent: number}) => {
         value={text}
       />
       <TouchableOpacity onPress={updateLimit} style={styles.spendingLimitTouch}>
-        <Text style={styles.spendingLimitText}>Change Spending Limit</Text>
+        <Text style={styles.spendingLimitText}>Top up available balance</Text>
       </TouchableOpacity>
     </View>
   );
@@ -87,4 +103,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default SpendingLimit;
+export default TopupAccount;

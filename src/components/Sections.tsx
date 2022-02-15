@@ -1,9 +1,9 @@
-import React, { useState } from 'react';
-import { View, Text, StyleSheet, Switch } from 'react-native';
-import { TouchableOpacity } from 'react-native-gesture-handler';
-import { windowWidth } from '../constants';
-import { Icon } from 'react-native-elements';
-import { colors } from '../styles/globalStyles';
+import React, {useState} from 'react';
+import {View, Text, StyleSheet, Switch} from 'react-native';
+import {TouchableOpacity} from 'react-native-gesture-handler';
+import {windowWidth} from '../constants';
+import {Icon} from 'react-native-elements';
+import {colors} from '../styles/globalStyles';
 
 export const SectionView = (props: {
   index: string;
@@ -23,7 +23,15 @@ export const SectionView = (props: {
 
   const sectionClickEvents = (index: string) => {
     if (index === '1') {
-      props.navigation.navigate('SpendingLimit', { amountSpent: props.amountSpent });
+      props.navigation.navigate('SpendingLimit', {
+        amountSpent: props.amountSpent,
+      });
+    } else if (index === '0') {
+      props.navigation.navigate('TopUp');
+    } else if (index === '3') {
+      props.navigation.navigate('SelectNewCard');
+    } else if (index === '4') {
+      props.navigation.navigate('ViewInactiveCards');
     }
   };
 
@@ -43,7 +51,7 @@ export const SectionView = (props: {
         </TouchableOpacity>
         {props.isSwitchEnabled && (
           <Switch
-            trackColor={{ false: colors.tertiary, true: colors.primary }}
+            trackColor={{false: colors.tertiary, true: colors.primary}}
             thumbColor={colors.white}
             ios_backgroundColor={colors.primary}
             value={switchValue}

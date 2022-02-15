@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import {
     View,
     Text,
@@ -6,9 +6,9 @@ import {
     ScrollView,
     Image,
     Animated,
-    Platform,
     StatusBar,
 } from 'react-native';
+import { useDispatch } from 'react-redux';
 import { SectionView } from '../../components/Sections';
 import { Card } from '../../components/Card';
 import homeIcon from '../../assets/homeIcon.jpeg';
@@ -16,13 +16,15 @@ import { useSelector } from 'react-redux';
 import { colors } from '../../styles/globalStyles';
 import fetch from 'react-native-fetch-polyfill';
 import { windowWidth, currencyFormat, apiHost } from '../../constants';
+import { updateCardDetails } from '../../reducers/DebitCard/actionCreators';
 
 const DebitCardScreen = (props: { navigation: any }) => {
     let activeStatus = 'active';
 
-    const weeklySpendingLimit = useSelector(state => {
-        return state.spendingLimit;
-    }) || 0;
+    const weeklySpendingLimit =
+        useSelector(state => {
+            return state.spendingLimit;
+        }) || 0;
 
     const switchSpendingLimit = () => {
         // console.log('switchSpendingLimit');
@@ -32,14 +34,10 @@ const DebitCardScreen = (props: { navigation: any }) => {
         return state.width;
     });
 
-    const [cardDetails, setCardDetails] = useState({
-        id: 1,
-        cardNumber: '',
-        cardOwnerName: '',
-        cvv: '',
-        startDate: '',
-        amountSpent: 0,
-        availableBalance: 0,
+    const dispatch = useDispatch();
+
+    const cardDetails = useSelector(state => {
+        return state.cardDetails;
     });
 
     const switchFreezeCard = () => {
@@ -52,9 +50,10 @@ const DebitCardScreen = (props: { navigation: any }) => {
         fetch(`http://${apiHost}:3000/cardDetails/1`, { method: 'GET' })
             .then(results => results.json())
             .then(data => {
-                setCardDetails(data);
+                dispatch(updateCardDetails(data));
             });
-    });
+        // eslint-disable-next-line
+    }, []);
 
     const sectiondata: [
         {
@@ -78,7 +77,9 @@ const DebitCardScreen = (props: { navigation: any }) => {
             {
                 key: '1',
                 heading: 'Weekly spending Limit',
-                subHeading: `Your weekly spending limit is ${currencyFormat(weeklySpendingLimit)}`,
+                subHeading: `Your weekly spending limit is ${currencyFormat(
+                    weeklySpendingLimit,
+                )}`,
                 iconName: 'dashboard',
                 iconType: 'antdesign',
                 isSwitchEnabled: true,
@@ -124,7 +125,9 @@ const DebitCardScreen = (props: { navigation: any }) => {
                         </View>
                         <View style={styles.balanceSection}>
                             <Text style={styles.subHeader}>Available Balance</Text>
-                            <Text style={styles.header}>{currencyFormat(cardDetails.availableBalance)}</Text>
+                            <Text style={styles.header}>
+                                {currencyFormat(cardDetails.availableBalance)}
+                            </Text>
                         </View>
                     </View>
                     <View style={styles.cardPosition}>
@@ -140,13 +143,15 @@ const DebitCardScreen = (props: { navigation: any }) => {
                             <View style={styles.limitWithBar}>
                                 <Text style={styles.spendingLimit}>
                                     Debit Card Spending Limit
-                                </Text>
+                </Text>
                                 <View style={styles.amountSpentOuter}>
                                     <Text style={styles.amountSpentText}>
                                         {currencyFormat(cardDetails.amountSpent)}
                                     </Text>
                                     <Text style={styles.grayColor}> | </Text>
-                                    <Text style={styles.grayColor}>{currencyFormat(weeklySpendingLimit)}</Text>
+                                    <Text style={styles.grayColor}>
+                                        {currencyFormat(weeklySpendingLimit)}
+                                    </Text>
                                 </View>
                             </View>
                             <View style={styles.progressBar}>

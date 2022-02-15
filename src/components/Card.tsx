@@ -1,9 +1,9 @@
-import React, { useState } from 'react';
-import { View, Text, StyleSheet, Image, TouchableOpacity } from 'react-native';
+import React, {useState} from 'react';
+import {View, Text, StyleSheet, Image, TouchableOpacity} from 'react-native';
 import cardIcon from '../assets/cardIcon.jpeg';
-import { windowWidth } from '../constants';
-import { Icon } from 'react-native-elements';
-import { colors } from '../styles/globalStyles'
+import {windowWidth} from '../constants';
+import {Icon} from 'react-native-elements';
+import {colors} from '../styles/globalStyles';
 
 export const Card = (props: {
   number: any;
