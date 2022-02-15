@@ -1,7 +1,8 @@
-import {UPDATE_SPENDING_LIMIT} from './constants';
+import { UPDATE_SPENDING_LIMIT, UPDATE_WIDTH } from './constants';
 
 const initialState = {
-  spendingLimit: '5000',
+  spendingLimit: 5000,
+  width: '6.9%'
 };
 
 const debitCardReducer = (state = initialState, action) => {
@@ -10,6 +11,11 @@ const debitCardReducer = (state = initialState, action) => {
       return {
         ...state,
         spendingLimit: action.payload,
+      };
+    case UPDATE_WIDTH:
+      return {
+        ...state,
+        width: action.payload,
       };
     default:
       return state;

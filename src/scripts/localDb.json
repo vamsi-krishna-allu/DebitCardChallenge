@@ -6,8 +6,8 @@
             "cardOwnerName": "Mark Henry",
             "cvv": "456",
             "startDate": "2/20",
-            "amountSpent": "$345",
-            "availableBalance": "3,000"
+            "amountSpent": 345,
+            "availableBalance": 3000
         },
         {
             "id": 2,
@@ -15,8 +15,8 @@
             "cardOwnerName": "Mark Henry",
             "cvv": "473",
             "startDate": "3/21",
-            "amountSpent": "$345",
-            "availableBalance": "4,000"
+            "amountSpent": 245,
+            "availableBalance": 4000
         },
         {
             "id": 3,
@@ -24,8 +24,8 @@
             "cardOwnerName": "Mark Henry",
             "cvv": "457",
             "startDate": "5/20",
-            "amountSpent": "$345",
-            "availableBalance": "5,000"
+            "amountSpent": 465,
+            "availableBalance": 5000
         },
         {
             "id": 4,
@@ -33,8 +33,8 @@
             "cardOwnerName": "Mark Henry",
             "cvv": "234",
             "startDate": "6/21",
-            "amountSpent": "$345",
-            "availableBalance": "6,000"
+            "amountSpent": 265,
+            "availableBalance": 6000
         }
     ]
 }

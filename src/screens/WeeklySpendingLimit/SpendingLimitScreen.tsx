@@ -1,19 +1,30 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 import {
   View,
   Text,
   StyleSheet,
   TouchableOpacity,
   TextInput,
+  Alert,
 } from 'react-native';
-import {useDispatch} from 'react-redux';
-import {updateSpendingLimit} from '../../reducers/DebitCard/actionCreators';
-import {colors} from '../../styles/globalStyles';
-import {windowWidth} from '../../constants';
+import { useDispatch } from 'react-redux';
+import { updateSpendingLimit, updateWidth } from '../../reducers/DebitCard/actionCreators';
+import { colors } from '../../styles/globalStyles';
+import { windowWidth } from '../../constants';
 
-const SpendingLimit = () => {
+const SpendingLimit = (props: { navigation: any, amountSpent: number }) => {
   const [text, setText] = useState('');
   const dispatch = useDispatch();
+
+  const updateLimit = () => {
+    let limit = Number(text);
+    if (limit === 0) {
+      Alert.alert('Enter valid value');
+    }
+    let width = (props.navigation.state.params.amountSpent * 100) / limit;
+    dispatch(updateWidth(width + '%'));
+    dispatch(updateSpendingLimit(limit));
+  }
 
   return (
     <View style={styles.container}>
@@ -24,7 +35,7 @@ const SpendingLimit = () => {
         value={text}
       />
       <TouchableOpacity
-        onPress={() => dispatch(updateSpendingLimit(text))}
+        onPress={updateLimit}
         style={styles.spendingLimitTouch}>
         <Text style={styles.spendingLimitText}>Change Spending Limit</Text>
       </TouchableOpacity>
