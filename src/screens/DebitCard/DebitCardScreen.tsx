@@ -17,7 +17,7 @@ import { useSelector } from 'react-redux';
 import { colors } from '../../styles/globalStyles';
 import fetch from 'react-native-fetch-polyfill';
 import { windowWidth, currencyFormat, apiHost } from '../../constants';
-import { updateCardDetails } from '../../reducers/DebitCard/actionCreators';
+import { updateCardDetails, updateWidth } from '../../reducers/DebitCard/actionCreators';
 
 const DebitCardScreen = (props: { navigation: any }) => {
     let activeStatus = 'active';
@@ -52,6 +52,8 @@ const DebitCardScreen = (props: { navigation: any }) => {
             .then(results => results.json())
             .then(data => {
                 dispatch(updateCardDetails(data));
+                let width = (data.amountSpent * 100) / weeklySpendingLimit;
+                dispatch(updateWidth(width + '%'));
             });
         // eslint-disable-next-line
     }, []);

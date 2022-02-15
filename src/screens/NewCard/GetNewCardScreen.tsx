@@ -1,12 +1,12 @@
-import React, {useEffect, useState} from 'react';
-import {StyleSheet, TouchableOpacity, ScrollView} from 'react-native';
-import {useDispatch, useSelector} from 'react-redux';
+import React, { useEffect, useState } from 'react';
+import { StyleSheet, TouchableOpacity, ScrollView } from 'react-native';
+import { useDispatch, useSelector } from 'react-redux';
 import fetch from 'react-native-fetch-polyfill';
-import {Card} from '../../components/Card';
-import {apiHost, windowWidth} from '../../constants';
-import {updateCardDetails} from '../../reducers/DebitCard/actionCreators';
+import { Card } from '../../components/Card';
+import { apiHost, windowWidth } from '../../constants';
+import { updateCardDetails, updateWidth } from '../../reducers/DebitCard/actionCreators';
 
-const NewCard = (props: {navigation: any}) => {
+const NewCard = (props: { navigation: any }) => {
   const dispatch = useDispatch();
 
   const [cardDetailsList, setCardDetailsList] = useState([]);
@@ -15,8 +15,13 @@ const NewCard = (props: {navigation: any}) => {
     return state.cardDetails;
   });
 
+  const weeklySpendingLimit =
+    useSelector(state => {
+      return state.spendingLimit;
+    }) || 0;
+
   useEffect(() => {
-    fetch(`http://${apiHost}:3000/cardDetails/`, {method: 'GET'})
+    fetch(`http://${apiHost}:3000/cardDetails/`, { method: 'GET' })
       .then(results => results.json())
       .then(data => {
         data = data.filter(
@@ -25,7 +30,7 @@ const NewCard = (props: {navigation: any}) => {
         setCardDetailsList(data);
       });
     // eslint-disable-next-line
-    }, []);
+  }, []);
 
   const updateCard = item => {
     const id = cardDetails.id;
@@ -41,6 +46,8 @@ const NewCard = (props: {navigation: any}) => {
       .then(results => results.json())
       .then(() => {
         dispatch(updateCardDetails(item));
+        let width = (item.amountSpent * 100) / weeklySpendingLimit;
+        dispatch(updateWidth(width + '%'));
         props.navigation.navigate('CardScreen');
       });
   };
