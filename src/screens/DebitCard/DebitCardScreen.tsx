@@ -7,6 +7,7 @@ import {
     Image,
     Animated,
     StatusBar,
+    Platform,
 } from 'react-native';
 import { useDispatch } from 'react-redux';
 import { SectionView } from '../../components/Sections';
@@ -209,7 +210,7 @@ const styles = StyleSheet.create({
         flexDirection: 'column',
         justifyContent: 'space-evenly',
         left: 20,
-        paddingTop: 40,
+        paddingTop: Platform.OS === 'ios' ? 80 : 40,
         paddingBottom: 70,
     },
     overlay: {
@@ -238,7 +239,7 @@ const styles = StyleSheet.create({
     cardPosition: {
         zIndex: 44,
         position: 'absolute',
-        top: 130,
+        top: Platform.OS === 'ios' ? 150 : 130,
         left: 20,
         width: windowWidth - 40,
     },

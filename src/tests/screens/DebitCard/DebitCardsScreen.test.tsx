@@ -1,10 +1,12 @@
 import * as React from 'react';
 import * as ReactRedux from 'react-redux';
 import DebitCardScreen from '../../../screens/DebitCard/DebitCardScreen';
-import Enzyme, {shallow} from 'enzyme';
+import Enzyme, { shallow } from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
 
-Enzyme.configure({adapter: new Adapter()});
+jest.mock('../../../constants');
+
+Enzyme.configure({ adapter: new Adapter() });
 
 describe('Debit Cards Screen', () => {
   let props;
@@ -13,6 +15,10 @@ describe('Debit Cards Screen', () => {
 
   const mockSelectorState = jest.fn();
 
+  const mockDispatch = jest.fn();
+
+  const mockDispatchState = jest.fn().mockReturnValue(mockDispatch);
+
   beforeEach(() => {
     props = {
       navigation: {
@@ -20,9 +26,19 @@ describe('Debit Cards Screen', () => {
       },
     };
 
+    mockDispatch.mockImplementation(callback => callback({}));
     mockSelectorState.mockImplementation(callback =>
       callback({
         spendingLimit: '5000',
+        cardDetails: {
+          id: 1,
+          cardNumber: '',
+          cardOwnerName: '',
+          cvv: '',
+          startDate: '',
+          amountSpent: 0,
+          availableBalance: 0,
+        }
       }),
     );
 
@@ -43,6 +59,8 @@ describe('Debit Cards Screen', () => {
   it('verify the screen', () => {
     jest.spyOn(React, 'useEffect').mockImplementation(mockEffect);
     jest.spyOn(ReactRedux, 'useSelector').mockImplementation(mockSelectorState);
+    jest.spyOn(ReactRedux, 'useDispatch').mockImplementation(mockDispatchState);
+
 
     const component = shallow(<DebitCardScreen {...props} />);
 

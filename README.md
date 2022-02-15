@@ -25,3 +25,7 @@ npm run server
 open the project in android studio and execute the build for android
 
 open the project in xcode and execute the build for ios
+
+local server is used to fetch data and update data all card details are fetched through a server
+
+and few test cases are added for the available components

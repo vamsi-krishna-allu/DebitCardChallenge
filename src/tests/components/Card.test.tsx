@@ -1,9 +1,9 @@
 import * as React from 'react';
-import Enzyme, {shallow} from 'enzyme';
+import Enzyme, { shallow } from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
-import {Card} from '../../components/Card';
+import { Card } from '../../components/Card';
 
-Enzyme.configure({adapter: new Adapter()});
+Enzyme.configure({ adapter: new Adapter() });
 
 describe('Card Component', () => {
   let props;
@@ -23,6 +23,13 @@ describe('Card Component', () => {
   });
 
   it('verify the card', () => {
+    const component = shallow(<Card {...props} />);
+
+    expect(component).toBeTruthy();
+  });
+
+  it('verify the card with empty props', () => {
+    props = {};
     const component = shallow(<Card {...props} />);
 
     expect(component).toBeTruthy();

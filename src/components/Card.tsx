@@ -1,9 +1,9 @@
-import React, {useState} from 'react';
-import {View, Text, StyleSheet, Image, TouchableOpacity} from 'react-native';
+import React, { useState } from 'react';
+import { View, Text, StyleSheet, Image, TouchableOpacity, Platform } from 'react-native';
 import cardIcon from '../assets/cardIcon.jpeg';
-import {windowWidth} from '../constants';
-import {Icon} from 'react-native-elements';
-import {colors} from '../styles/globalStyles';
+import { windowWidth } from '../constants';
+import { Icon } from 'react-native-elements';
+import { colors } from '../styles/globalStyles';
 
 export const Card = (props: {
   number: any;
@@ -113,7 +113,7 @@ const styles = StyleSheet.create({
     borderTopLeftRadius: 5,
     borderTopRightRadius: 5,
     width: windowWidth - 220,
-    left: windowWidth - 230,
+    left: Platform.OS === 'ios' ? windowWidth - 200 : windowWidth - 230,
     padding: 3,
   },
   hideCardTitle: {
